@@ -12,7 +12,7 @@ python3 run.py
 
 to proceed the code to read the puf.
 
-**Note: the reading from web camera function is developing 
+**Note: the reading from web camera function is developing**
 
 -----
 
