@@ -3,7 +3,7 @@
 run the following line in terminal to install prerequisite packages.
 
 ```{bash}
-pip install -r requirments.txt
+pip install -r requirements.txt
 ```
 
 ```{python}
@@ -11,6 +11,8 @@ python3 run.py
 ```
 
 to proceed the code to read the puf.
+
+**Note: the reading from web camera function is developing 
 
 -----
 
