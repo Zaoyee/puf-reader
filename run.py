@@ -1,6 +1,7 @@
-import reader as rder
 from PIL import Image
 import numpy as np
+import re
+import read as rder
 
 ip, out_mode, length_required, sampleID = np.repeat(-1, 4)
 e1, e2, e3, e4 = np.repeat(0, 4)
@@ -25,13 +26,16 @@ while ip not in range(0,3):
                    ' "2" for determistic selection\nInput here: '))
     if ip == 2:
         loc = input("type in location in format *(y, x, dir)*\n"
-                    " dir :\n   0 : by row \n   1 : by column\nInput here: ").split(',')
-        loc_new = tuple([int(x) for x in loc])
-        while rder.out_bound_check(im2arr, loc_new):
+                    " dir :\n   0 : by row \n   1 : by column\nInput here: ")
+        loc_lst = loc.split(',')
+        loc_new = tuple([int(x) for x in loc_lst])
+        rex = re.compile('^[0-9999],[0-9999],[0-1]$')
+        while ((rex.match(loc) is None) or (rder.out_bound_check(im2arr, loc_new))):
             loc = input("type in location in format *(y, x, dir)*\n"
                         " dir :\n   0 : by row \n   1 : by column\n"
-                        "Input here: ").split(',')
-            loc_new = tuple([int(x) for x in loc])
+                        "Input here: ")
+            loc_lst = loc.split(',')
+            loc_new = tuple([int(x) for x in loc_lst])
     else:
         loc_new = None
     e1 += 1
