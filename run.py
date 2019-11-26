@@ -5,16 +5,16 @@ import read as rder
 
 """
 Author: Zaoyi Chi
-
-Organization: Northern Arizona University - 
-Wireless Networking and Smarth Health (WiNeSh) research laboratory
-
 Date : 11.25.2019
+Organization: Northern Arizona University  
+Developed in Dr. Razi's Wireless Networking and Smarth Health (WiNeSh) research laboratory
+(https://www.cefns.nau.edu/~ar2843/research.html)
 
-This function reads the image dendrite optical PUFs and generate
+This function reads a dendritic pattern and generates
 an unique ID in (bin, hex, dec, unit-8 char).
 
-This code is developed for educational purpose.
+This code is developed only for educational purpose.
+The codelink is: https://github.com/Zaoyee/puf-reader 
 """
 
 ip, out_mode, length_required, sampleID = np.repeat(-1, 4)
@@ -23,23 +23,14 @@ e1, e2, e3, e4 = np.repeat(0, 4)
 print('-'*40)
 
 
-while sampleID not in range(1,52):
-    if e4 != 0:
-        print("Unknown command, plz retype the selection mode\n")
-    sampleID = int(input('Enter the number of sampleID: 1~51\nInput here: '))
-    e4 += 1
-
-PILimg = Image.open('./dendrites/' +
-                    str(sampleID) + '.tif')
-im2arr = rder.PIL2ary(PILimg)
 
 while ip not in range(0,3):
     if e1 != 0:
         print("Unknown command, plz retype the selection mode\n")
     ip = int(input('Choose "1" for RANDOM selection,'
                    ' "2" for DETERMINISTIC selection\n'
-                   '    DETERMINISTIC: extracts the same number for a dendrite in multiple readings\n'
                    '    RANDOM: extracts different numbers for a dendrite in multiple readings\n'
+                   '    DETERMINISTIC: extracts the same number for a dendrite in multiple readings\n'
                    'Input here: '))
     if ip == 2:
         ## this part enable could make the determinstic to read from a user input location
@@ -62,12 +53,23 @@ while ip not in range(0,3):
         loc_new = None
     e1 += 1
 
+while sampleID not in range(1,52):
+    if e4 != 0:
+        print("Unknown command, plz retype the selection mode\n")
+    sampleID = int(input('Enter the number of sampleID: 1~51\nInput here: '))
+    e4 += 1
+
+PILimg = Image.open('./dendrites/' +
+                    str(sampleID) + '.tif')
+im2arr = rder.PIL2ary(PILimg)
+
+
+
 while out_mode not in range(0,4):
     if e2 != 0:
         print("Unknown command, plz retype the selection mode\n")
-    out_mode = int(input('Select the output format\n   0'
-                     '  :  Binary\n   1  :  Decimal\n   2'
-                     '  ： Hexdecimal\n   3  :  Character\nInput here: '))
+    out_mode = int(input('Select the output format\n'
+                     '   0:  Binary\n   1:  Decimal\n   2:  Hexdecimal\n   3:  Character\nInput here: '))
     e2 += 1
 
 while length_required not in range(1,65):
